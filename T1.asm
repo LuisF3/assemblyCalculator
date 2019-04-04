@@ -107,11 +107,55 @@
 		not_imcc:
 			li $t1, 9
 			bgt $t0, $t1, not_fato
+			
+			li $v0, 4
+			la $a0, str_nume	 
+			syscall
+			
+			li $v0, 5  	
+			syscall	
+			
+			move $a0, $v0
+			
 			jal fatorial
+			
+			move $t1 ,$v0
+			
+			li $v0, 4
+			la $a0, str_fato
+			syscall
+			
+			li $v0, 1
+			move $a0, $t1
+			syscall
+			
+		
 			j main
+			
 		not_fato:
 			li $t1, 10
 			bgt $t0, $t1, the_end
+			
+			li $v0, 4
+			la $a0, str_fiin	 
+			syscall
+			
+			li $v0, 5  	
+			syscall		 
+			move $t1, $v0	#precisa printar entre $t1
+			
+			li $v0, 4
+			la $a0, str_fisu	 
+			syscall
+			
+			li $v0, 5  	
+			syscall		 
+			move $t2, $v0	# e entre $t2
+			
+			
+			move $a0, $t1
+			move $a1, $t2
+			
 			jal fibonacci
 			j main
 	
@@ -121,9 +165,8 @@
 			
 		
 		Soma : 
-			addi $sp, $sp, -8 #alocando o espaço de necessa
-			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			addi $sp, $sp, -4 #alocando o espaço de necessa
+			sw $ra, 0($sp)
 			
 			li $v0, 4
 			la $a0, str_nume #solicitando numero de entrada
@@ -152,15 +195,15 @@
 			move $a0, $t2  	  # printando soma
 			syscall
 			
-			lw $a0, 0($sp)
-			lw $ra, 4($sp)
-			addi $sp, $sp, 8
+			
+			lw $ra, 0($sp)
+			addi $sp, $sp, 4
 			jr $ra
 			
 		Subtracao: 
-			addi $sp, $sp, -8 #alocando o espaço de necessa
-			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			addi $sp, $sp, -4 #alocando o espaço de necessa
+			
+			sw $ra, 0($sp)
 			
 			li $v0, 4
 			la $a0, str_nume #solicitando numero de entrada
@@ -182,22 +225,22 @@
 			sub $t2, $t2, $t3 #subtraindo numeros de entrada armazenando em $t2
 			
 			li $v0, 4
-			la $a0, str_soma  # o resultado na subtracao eh : 
+			la $a0, str_subi  # o resultado na subtracao eh : 
 			syscall
 			
 			li $v0, 1
 			move $a0, $t2  	  # printando subtracao
 			syscall
 			
-			lw $a0, 0($sp)
-			lw $ra, 4($sp)
-			addi $sp, $sp, 8
+		
+			lw $ra, 0($sp)
+			addi $sp, $sp, 4
 			jr $ra
 			
 		Multiplicacao : 
-			addi $sp, $sp, -8 #alocando o espaço de necessa
-			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			addi $sp, $sp, -4 #alocando o espaço de necessa
+		
+			sw $ra, 0($sp)
 			
 			li $v0, 4
 			la $a0, str_nume #solicitando numero de entrada
@@ -226,15 +269,15 @@
 			move $a0, $t2  	  # printando multiplicacao
 			syscall
 			
-			lw $a0, 0($sp)
-			lw $ra, 4($sp)
-			addi $sp, $sp, 8
+		
+			lw $ra, 0($sp)
+			addi $sp, $sp, 4
 			jr $ra
 			
 		Divisao : 
-			addi $sp, $sp, -8 #alocando o espaço de necessa
-			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			addi $sp, $sp, -4 #alocando o espaço de necessario
+	
+			sw $ra, 0($sp)
 			
 			li $v0, 4
 			la $a0, str_nume #solicitando numero de entrada
@@ -278,9 +321,9 @@
 			
 			end_div: 
 				
-				lw $a0, 0($sp)
-				lw $ra, 4($sp)
-				addi $sp, $sp, 8
+				
+				lw $ra, 0($sp)
+				addi $sp, $sp, 4
 				jr $ra
 			
 			div_por_zero:
@@ -291,9 +334,9 @@
 				
 		
 		Potencia :
-			addi $sp, $sp, -8 #alocando o espaço de necessa
-			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			addi $sp, $sp, -4 #alocando o espaço de necessa
+			
+			sw $ra, 0($sp)
 			
 			li $v0, 4
 			la $a0, str_nume #solicitando numero de entrada
@@ -347,15 +390,15 @@
 			
 			end_sis_pot:
 			
-				lw $a0, 0($sp)
-				lw $ra, 4($sp)
-				addi $sp, $sp, 8
+				
+				lw $ra, 0($sp)
+				addi $sp, $sp, 4
 				jr $ra
 		
 		raiz : 
-			addi $sp, $sp, -8 #alocando o espaço de necessa
-			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			addi $sp, $sp, -4 #alocando o espaço de necessa
+		
+			sw $ra, 0($sp)
 			
 			li $v0, 4
 			la $a0, str_nume #solicitando numero de entrada para a 
@@ -401,9 +444,9 @@
 			
 			end_raiz_f:
 		
-				lw $a0, 0($sp)
-				lw $ra, 4($sp)
-				addi $sp, $sp, 8
+				
+				lw $ra, 0($sp)
+				addi $sp, $sp, 4
 				jr $ra
 			raiz_zero:
 				li $v0, 4
@@ -423,9 +466,8 @@
 			
 			
 		tabuada: 
-			addi $sp, $sp, -8 #alocando o espaço de necessa
-			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			addi $sp, $sp, -4 #alocando o espaço de necessa
+			sw $ra, 0($sp)
 			
 			li $v0, 4
 			la $a0, str_nume #solicitando numero de entrada para a 
@@ -475,14 +517,14 @@
 			
 			end_tabu:
 		
-				lw $a0, 0($sp)
-				lw $ra, 4($sp)
-				addi $sp, $sp, 8
+			
+				lw $ra, 0($sp)
+				addi $sp, $sp, 4
 				jr $ra
 		imc: 
-			addi $sp, $sp, -8 #alocando o espaço de necessa
-			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			addi $sp, $sp, -4 #alocando o espaço de necessa
+			
+			sw $ra, 0($sp)
 			
 			li $v0, 4
 			la $a0, str_peso #solicitando peso	 
@@ -513,9 +555,9 @@
 			syscall
 			
 			
-			lw $a0, 0($sp)
-			lw $ra, 4($sp)
-			addi $sp, $sp, 8
+			
+			lw $ra, 0($sp)
+			addi $sp, $sp, 4
 			jr $ra
 		
 		fatorial: 
@@ -523,14 +565,8 @@
 			sw $a0, 0($sp)
 			sw $ra, 4($sp)
 			
-			li $v0, 4
-			la $a0, str_nume	 
-			syscall
-			
-			li $v0, 5  	
-			syscall		 
-			move $t1, $v0	# numero que devemos fazer o fatorial			
-			move $t2, $v0 	#variavel auxiliar, counter   
+			move $t1, $a0	# numero que devemos fazer o fatorial			
+			move $t2, $a0 	#variavel auxiliar, counter   
 			li $t3, 1	#constante 
 			
 			beq $t1, $zero, fat_de_zero #fatorial de zero
@@ -544,14 +580,7 @@
 			  
 			end_fat:
 			
-				li $v0, 4
-				la $a0, str_fato
-				syscall
-			
-				li $v0, 1
-				move $a0, $t1
-				syscall
-			
+				move $v0, $t1
 			
 				lw $a0, 0($sp)
 				lw $ra, 4($sp)
@@ -562,25 +591,13 @@
 				j end_fat #pula para o fim do fatorial
 			
 		fibonacci: 
-			addi $sp, $sp, -8 #alocando o espaço de necessa
+			addi $sp, $sp, -12 #alocando o espaço de necessa
 			sw $a0, 0($sp)
-			sw $ra, 4($sp)
+			sw $a1,	4($sp)
+			sw $ra, 8($sp)
 			
-			li $v0, 4
-			la $a0, str_fiin	 
-			syscall
-			
-			li $v0, 5  	
-			syscall		 
-			move $t1, $v0	#precisa printar entre $t1
-			
-			li $v0, 4
-			la $a0, str_fisu	 
-			syscall
-			
-			li $v0, 5  	
-			syscall		 
-			move $t2, $v0	# e entre $t2
+			move $t1, $a0
+			move $t2, $a1
 			
 			#
  		#int a = 1;
@@ -605,7 +622,7 @@
 			la $a0, str_fibi
 			syscall
 			
-			beq $t1, $t3 ,star_with_one # precisamos fazer primeiro
+			beq $t1, $t3 ,starts_with_one # precisamos fazer primeiro
 						    # eh printar 1 ; 1
 						    # pois o limite inferior eh 1
  			
@@ -638,10 +655,13 @@
 			end_fib:
 						
 				lw $a0, 0($sp)
-				lw $ra, 4($sp)
+				lw $a1, 4($sp)
+				lw $ra, 8($sp)
+				
 				addi $sp, $sp, 8
 				jr $ra
-			star_with_one:
+				
+			starts_with_one:
 				li $v0, 1
 				move $a0, $t3
 				syscall
