@@ -1,4 +1,4 @@
-# assemblyCalculator
+# AssemblyCalculator
 
-line 3
+A simple calculator in assembly
 
